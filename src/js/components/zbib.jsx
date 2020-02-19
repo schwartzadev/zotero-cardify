@@ -5,7 +5,6 @@ const PropTypes = require('prop-types');
 const { withRouter } = require('react-router-dom');
 const cx = require('classnames');
 
-const About = require('./about');
 const BibliographySection = require('./bibliographySection');
 const Brand = require('./brand');
 const Button = require('zotero-web-library/src/js/component/ui/button');
@@ -25,7 +24,6 @@ const Review = require('./review');
 const Spinner = require('zotero-web-library/src/js/component/ui/spinner');
 const StyleInstaller = require('./style-installer');
 const UserTypeDetector = require('zotero-web-library/src/js/enhancers/user-type-detector');
-const WhatsThis = require('./whats-this');
 const Footer = require('./footer');
 
 class ZBib extends React.PureComponent {
@@ -72,10 +70,6 @@ class ZBib extends React.PureComponent {
 							{
 								!this.props.isReadOnly && (
 									<section className="section section-cite">
-										<nav className="meta-nav">
-											<a onClick={ this.handleHelp.bind(this) }>Help</a>
-											<a href="https://www.zotero.org">Zotero</a>
-										</nav>
 										<div className="container">
 											<Brand />
 											<CiteTools { ...this.props } />
@@ -96,20 +90,6 @@ class ZBib extends React.PureComponent {
 							}
 
 							{
-								!this.props.isReadOnly && (
-									<section className="section section-link">
-										<div className="container">
-											<h2>
-												Link to this version
-												<WhatsThis />
-											</h2>
-											<PermalinkTools { ...this.props } />
-										</div>
-									</section>
-								)
-							}
-
-							{
 								this.props.isReadOnly && (
 									<section className="section section-brand">
 										<div className="container">
@@ -119,11 +99,7 @@ class ZBib extends React.PureComponent {
 								)
 							}
 
-							{
-								!this.props.isReadOnly && (
-									<About { ...this.props } />
-								)
-							}
+
 
 							<Footer />
 
