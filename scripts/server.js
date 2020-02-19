@@ -31,11 +31,6 @@ const handler = (req, resp) => {
 			resp.statusMessage = 'Translation Server not available';
 			resp.end();
 		});
-	} else if (req.url == '/faq') {
-		fs.readFile(path.join(__dirname, '..', 'build', 'faq'), (err, buf) => {
-			resp.setHeader('Content-Type', 'text/html');
-			resp.end(buf);
-		});
 	} else {
 		serve(req, resp, fallback);
 	}

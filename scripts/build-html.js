@@ -23,19 +23,6 @@ const addAnchors = html => {
 	return $.html();
 };
 
-const buildFaqPage = async () => {
-	const faqMarkdown = await fs.readFile(path.join(__dirname, '..', 'src', 'html', 'faq.md'));
-	const faqTemplate = await fs.readFile(path.join(__dirname, '..', 'src', 'html', 'faq.hbs'));
-	const dstFile = path.join(__dirname, '..', 'build', 'faq');
-	const template = Handlebars.compile(faqTemplate.toString());
-	const faqHTML = marked(faqMarkdown.toString(), { smartypants: true })
-					// Remove "-" at end of id attributes, which marked substitutes for question marks
-						.replace(/(id="[^"]+)-"/g, '$1"');
-	const output = addAnchors(await template({ faq: faqHTML }));
-	await fs.writeFile(dstFile, output);
-	console.log('faq page generated');
-};
-
 const buildIndexPage = async () => {
 	const indexConfig = config.get('indexConfig');
 	const srcFile = path.join(__dirname, '..', 'src', 'html', 'index.hbs');
@@ -51,5 +38,5 @@ const buildIndexPage = async () => {
 (async () => {
 	const dstDir = path.join(__dirname, '..', 'build');
 	await fs.ensureDir(dstDir);
-	await Promise.all([buildIndexPage(), buildFaqPage()]);
+	await Promise.all([buildIndexPage()]);
 })();
