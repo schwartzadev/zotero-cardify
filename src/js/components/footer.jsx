@@ -7,8 +7,11 @@ class Footer extends React.PureComponent {
 		return (
 			<footer>
 				<nav className="social-nav">
-					Stay in touch! Follow <a href="https://twitter.com/zotero">@zotero</a> on Twitter.
+					For policy debate, by Andrew Schwartz<br/>
+					Thanks to <a href="https://www.zotero.org/">Zotero</a>.
+					Forked from <a href="https://github.com/zotero/bib-web">ZBib</a> on Github.
 				</nav>
+				{/* todo identify the proper legal compyright below */}
 				<small className="copyright">
 					© { (new Date()).getFullYear() } Corporation for Digital Scholarship &nbsp;•&nbsp; <a href="/faq#privacy">Privacy</a>
 				</small>
