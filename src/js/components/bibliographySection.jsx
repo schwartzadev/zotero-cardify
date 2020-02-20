@@ -95,9 +95,6 @@ class BibliographySection extends React.PureComponent {
 						)
 					}
 					{
-						!this.props.isReadOnly && <StyleSelector { ...this.props } />
-					}
-					{
 						this.props.isLoadingCitations ? (
 							<div className="spinner-container">
 								<Spinner />
