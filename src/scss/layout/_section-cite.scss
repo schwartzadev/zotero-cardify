@@ -23,10 +23,10 @@
 	}
 
 	.brand {
-		margin-bottom: $space-xl - 1px;
+		margin-bottom: $space-sm - 1px;
 
 		@media (min-width: $bp-md) {
-			margin-bottom: $space-xxl - 1px;
+			margin-bottom: $space-md - 1px;
 		}
 	}
 }
