@@ -50,6 +50,7 @@ class Container extends React.Component {
 			...defaults,
 			...this.props.config
 		},
+		debateTags: JSON.parse(localStorage.getItem('debate-tags')) || [],
 		editorItem: null,
 		isConfirmingStyleSwitch: false,
 		isEditorOpen: false,
@@ -809,6 +810,26 @@ class Container extends React.Component {
 		});
 	}
 
+	handleDebateTagChange(rawItemKey, newTag) {
+		let result = this.state.debateTags.find(item => item.key === rawItemKey);
+		let index = this.state.debateTags.indexOf(result);
+
+		let newTags = this.state.debateTags;
+
+		if (result) { // if it exists, update it
+			newTags[index] = {key: result.key, tag: newTag}
+		} else { // else, add it
+			newTags.push({key: rawItemKey, tag: newTag})
+		}
+
+		this.setState({
+			debateTags: newTags
+		});
+
+		localStorage.setItem('debate-tags', JSON.stringify(this.state.debateTags));
+	}
+
+
 	handleReadMoreClick(id, event) {
 		const target = document.querySelector('.zbib-illustration');
 		scroll.animateScroll(target, event.target, {
@@ -1093,6 +1114,7 @@ class Container extends React.Component {
 			onStyleSwitchCancel = { this.handleStyleSwitchCancel.bind(this) }
 			onStyleSwitchConfirm = { this.handleStyleSwitchConfirm.bind(this) }
 			onTitleChanged = { this.handleTitleChange.bind(this) }
+			onDebateTagChanged = { this.handleDebateTagChange.bind(this) }
 			onTranslationRequest = { this.handleTranslateIdentifier.bind(this) }
 			onUndoDelete = { this.handleUndoDelete.bind(this) }
 			{ ...this.state }

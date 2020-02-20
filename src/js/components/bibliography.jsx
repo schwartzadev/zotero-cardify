@@ -13,6 +13,9 @@ const DropdownItem = require('reactstrap/lib/DropdownItem').default;
 const Button = require('zotero-web-library/src/js/component/ui/button');
 const Icon = require('zotero-web-library/src/js/component/ui/icon');
 
+const Tag = require('./tag');
+
+
 const { getHtmlNodeFromBibliography, makeBibliographyContentIterator } =require('../utils') ;
 
 class Bibliography extends React.PureComponent {
@@ -109,6 +112,10 @@ class Bibliography extends React.PureComponent {
 				tabIndex={ 0 }
 			>
 				<div className="csl-entry-container">
+					<Tag
+						{ ...this.props }
+						rawItemKey={ rawItem.key }
+					/>
 					{ content }
 				</div>
 				<Dropdown
