@@ -16,7 +16,7 @@
 
 		.card-container {
 			display: flex;
-			align-items: center;
+			align-items: flex-start;
 			flex-direction: column;
 			padding: ($space-lg - 7px) ($space-md - $space-xs) ($space-lg - 7px) $space-md; // Caps height
 			border-top: 1px solid $shade-2;
