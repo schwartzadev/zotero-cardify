@@ -105,86 +105,79 @@ class Bibliography extends React.PureComponent {
 
 	renderBibliographyItem(rawItem, content) {
 		return (
-			<li key={ rawItem.key }
-				className="citation"
-				onFocus={ this.handleFocus.bind(this, rawItem.key) }
-				onClick={ ev => this.handleEditCitation(rawItem.key, ev) }
-				tabIndex={ 0 }
-			>
-				<div className="csl-entry-container">
-					<Tag
-						{ ...this.props }
-						rawItemKey={ rawItem.key }
-					/>
-					{ content }
-				</div>
-				<Dropdown
-					isOpen={ this.state.dropdownsOpen.includes(rawItem.key) }
-					toggle={ this.handleToggleDropdown.bind(this, rawItem.key) }
-					className="d-md-none"
+			<div className="card-container">
+				<Tag
+					{ ...this.props }
+					rawItemKey={ rawItem.key }
+				/>
+				<div key={ rawItem.key }
+					className="citation"
+					onFocus={ this.handleFocus.bind(this, rawItem.key) }
+					onClick={ ev => this.handleEditCitation(rawItem.key, ev) }
+					tabIndex={ 0 }
 				>
-					<DropdownToggle
-						color={ null }
-						className="btn-icon dropdown-toggle"
+					<div className="csl-entry-container">
+						{ content }
+					</div>
+					<Dropdown
+						isOpen={ this.state.dropdownsOpen.includes(rawItem.key) }
+						toggle={ this.handleToggleDropdown.bind(this, rawItem.key) }
+						className="d-md-none"
 					>
-						<Icon type={ '28/dots' } width="28" height="28" />
-					</DropdownToggle>
-					<DropdownMenu right className="dropdown-menu">
-						{ !this.props.isNumericStyle && (
+						<DropdownToggle
+							color={ null }
+							className="btn-icon dropdown-toggle"
+						>
+							<Icon type={ '28/dots' } width="28" height="28" />
+						</DropdownToggle>
+						<DropdownMenu right className="dropdown-menu">
+							{ !this.props.isNumericStyle && (
+								<DropdownItem
+									onClick={ this.handleCopyCitationDialogOpen.bind(this, rawItem.key) }
+									className="btn"
+								>
+									<span className={ cx('inline-feedback', {
+										'active': this.state.clipboardConfirmations.includes(rawItem.key)
+									}) }>
+										<span
+										className="default-text"
+										aria-hidden={ !this.state.clipboardConfirmations.includes(rawItem.key) }>
+											{this.props.isNoteStyle ? 'Copy Note' : 'Copy Citation'}
+										</span>
+										<span
+										className="shorter feedback"
+										aria-hidden={ this.state.clipboardConfirmations.includes(rawItem.key) }>
+											Copied!
+										</span>
+									</span>
+								</DropdownItem>
+							) }
 							<DropdownItem
-								onClick={ this.handleCopyCitationDialogOpen.bind(this, rawItem.key) }
+								onClick={ this.handleEditCitation.bind(this, rawItem.key) }
 								className="btn"
 							>
-								<span className={ cx('inline-feedback', {
-									'active': this.state.clipboardConfirmations.includes(rawItem.key)
-								}) }>
-									<span
-									className="default-text"
-									aria-hidden={ !this.state.clipboardConfirmations.includes(rawItem.key) }>
-										{this.props.isNoteStyle ? 'Copy Note' : 'Copy Citation'}
-									</span>
-									<span
-									className="shorter feedback"
-									aria-hidden={ this.state.clipboardConfirmations.includes(rawItem.key) }>
-										Copied!
-									</span>
-								</span>
+								Edit
 							</DropdownItem>
-						) }
-						<DropdownItem
-							onClick={ this.handleEditCitation.bind(this, rawItem.key) }
-							className="btn"
-						>
-							Edit
-						</DropdownItem>
-						<DropdownItem
-							onClick={ this.handleDeleteCitation.bind(this, rawItem.key) }
-							className="btn"
-						>
-							Delete
-						</DropdownItem>
-					</DropdownMenu>
-				</Dropdown>
-				{ !this.props.isNumericStyle && (
+							<DropdownItem
+								onClick={ this.handleDeleteCitation.bind(this, rawItem.key) }
+								className="btn"
+							>
+								Delete
+							</DropdownItem>
+						</DropdownMenu>
+					</Dropdown>
 					<Button
-						title={this.props.isNoteStyle ? 'Copy Note' : 'Copy Citation'}
-						className={ cx('d-xs-none d-md-block btn-outline-secondary btn-copy', { success: this.state.clipboardConfirmations.includes(rawItem.key) })}
-						onClick={ this.handleCopyCitationDialogOpen.bind(this, rawItem.key) }
+						title="Delete Entry"
+						className="btn-outline-secondary btn-remove"
+						onClick={ this.handleDeleteCitation.bind(this, rawItem.key) }
 					>
-						<Icon type={ '16/copy' } width="16" height="16" />
+						<Icon type={ '16/remove-sm' } width="16" height="16" />
 					</Button>
-				) }
-				<Button
-					title="Delete Entry"
-					className="btn-outline-secondary btn-remove"
-					onClick={ this.handleDeleteCitation.bind(this, rawItem.key) }
-				>
-					<Icon type={ '16/remove-sm' } width="16" height="16" />
-				</Button>
-				<script type="application/vnd.zotero.data+json">
-					{ JSON.stringify(rawItem) }
-				</script>
-			</li>
+					<script type="application/vnd.zotero.data+json">
+						{ JSON.stringify(rawItem) }
+					</script>
+				</div>
+			</div>
 		);
 	}
 
@@ -223,9 +216,9 @@ class Bibliography extends React.PureComponent {
 
 			return [
 				...this.keyHandlers,
-				<ul className="bibliography" key="bibliography">
+				<div className="bibliography" key="bibliography">
 					{ bibliographyProcessedContent }
-				</ul>
+				</div>
 			];
 		}
 	}
