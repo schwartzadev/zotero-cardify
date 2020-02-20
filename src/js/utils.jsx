@@ -10,6 +10,326 @@ const formatBib = require('./cite');
 const { baseMappings } = require('zotero-web-library/src/js/constants/item');
 const stylesCache = {};
 
+// todo put this style in its own file
+const policyDebateStyle = `<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="never" page-range-format="minimal-two">
+  <!-- This style was edited with the Visual CSL Editor (https://editor.citationstyles.org/visualEditor/) -->
+  <info>
+    <title>Policy Debate (Modified MLA8)</title>
+    <title-short>CX</title-short>
+    <id>https://en.wikipedia.org/wiki/Policy_debate</id>
+    <summary>This style adheres to the norms for &quot;cards&quot; in competitive policy debate.</summary>
+    <updated>2020-02-20T03:21:43+00:00</updated>
+  </info>
+  <locale xml:lang="en">
+    <date form="text">
+      <date-part name="day" suffix=" "/>
+      <date-part name="month" suffix=" " form="short"/>
+      <date-part name="year"/>
+    </date>
+    <terms>
+      <term name="month-01" form="short">Jan.</term>
+      <term name="month-02" form="short">Feb.</term>
+      <term name="month-03" form="short">Mar.</term>
+      <term name="month-04" form="short">Apr.</term>
+      <term name="month-05" form="short">May</term>
+      <term name="month-06" form="short">June</term>
+      <term name="month-07" form="short">July</term>
+      <term name="month-08" form="short">Aug.</term>
+      <term name="month-09" form="short">Sept.</term>
+      <term name="month-10" form="short">Oct.</term>
+      <term name="month-11" form="short">Nov.</term>
+      <term name="month-12" form="short">Dec.</term>
+      <term name="translator" form="short">trans.</term>
+    </terms>
+  </locale>
+  <macro name="card-author">
+    <names variable="author" suffix="">
+      <name form="short" and="text" delimiter-precedes-et-al="always" delimiter-precedes-last="always" initialize="false" initialize-with=". " name-as-sort-order="first"/>
+      <label form="long" prefix=", "/>
+      <substitute>
+        <names variable="editor"/>
+        <names variable="translator"/>
+        <text macro="title"/>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="author">
+    <names variable="author" suffix="">
+      <name name-as-sort-order="first" and="text" delimiter-precedes-last="always" delimiter-precedes-et-al="always" initialize="false" initialize-with=". "/>
+      <label form="long" prefix=", "/>
+      <substitute>
+        <names variable="editor"/>
+        <names variable="translator"/>
+        <text macro="title"/>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="author-short">
+    <group delimiter=", ">
+      <names variable="author">
+        <name form="short" initialize-with=". " and="text"/>
+        <substitute>
+          <names variable="editor"/>
+          <names variable="translator"/>
+          <text macro="title-short"/>
+        </substitute>
+      </names>
+      <choose>
+        <if disambiguate="true">
+          <text macro="title-short"/>
+        </if>
+      </choose>
+    </group>
+  </macro>
+  <macro name="title">
+    <choose>
+      <if variable="container-title" match="any">
+        <text variable="title" quotes="true" text-case="title"/>
+      </if>
+      <else>
+        <text variable="title" font-style="italic" text-case="title"/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="title-short">
+    <choose>
+      <if variable="container-title" match="any">
+        <text variable="title" form="short" quotes="true" text-case="title"/>
+      </if>
+      <else>
+        <text variable="title" form="short" font-style="italic" text-case="title"/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="container-title">
+    <text variable="container-title" font-style="italic" text-case="title"/>
+  </macro>
+  <macro name="other-contributors">
+    <group delimiter=", ">
+      <choose>
+        <if variable="container-title" match="any">
+          <names variable="container-author editor illustrator interviewer translator" delimiter=", ">
+            <label form="verb" suffix=" "/>
+            <name and="text"/>
+          </names>
+        </if>
+        <else>
+          <names variable="container-author editor illustrator interviewer translator" delimiter=", ">
+            <label form="verb" suffix=" " text-case="capitalize-first"/>
+            <name and="text"/>
+          </names>
+        </else>
+      </choose>
+      <names variable="director">
+        <label form="verb" suffix=" " text-case="capitalize-first"/>
+        <name and="text"/>
+      </names>
+    </group>
+  </macro>
+  <macro name="version">
+    <group delimiter=", ">
+      <choose>
+        <if is-numeric="edition">
+          <group delimiter=" ">
+            <number variable="edition" form="ordinal"/>
+            <text term="edition" form="short"/>
+          </group>
+        </if>
+        <else>
+          <text variable="edition" text-case="capitalize-first"/>
+        </else>
+      </choose>
+      <text variable="version"/>
+    </group>
+  </macro>
+  <macro name="volume-lowercase">
+    <group delimiter=" ">
+      <text term="volume" form="short"/>
+      <text variable="volume"/>
+    </group>
+  </macro>
+  <macro name="number">
+    <group delimiter=", ">
+      <group>
+        <choose>
+          <if variable="edition container-title" match="any">
+            <text macro="volume-lowercase"/>
+          </if>
+          <else-if variable="author" match="all">
+            <choose>
+              <if variable="editor translator container-author illustrator interviewer director" match="any">
+                <text macro="volume-lowercase"/>
+              </if>
+            </choose>
+          </else-if>
+          <else-if variable="editor" match="all">
+            <choose>
+              <if variable="translator container-author illustrator interviewer director" match="any">
+                <text macro="volume-lowercase"/>
+              </if>
+            </choose>
+          </else-if>
+          <else-if variable="container-author illustrator interviewer director" match="any">
+            <text macro="volume-lowercase"/>
+          </else-if>
+          <else>
+            <group delimiter=" ">
+              <text term="volume" form="short" text-case="capitalize-first"/>
+              <text variable="volume"/>
+            </group>
+          </else>
+        </choose>
+      </group>
+      <group delimiter=" ">
+        <text term="issue" form="short"/>
+        <text variable="issue"/>
+      </group>
+      <choose>
+        <if type="report">
+          <text variable="genre"/>
+        </if>
+      </choose>
+      <text variable="number"/>
+    </group>
+  </macro>
+  <macro name="publisher">
+    <text variable="publisher"/>
+  </macro>
+  <macro name="publication-date">
+    <choose>
+      <if type="book chapter paper-conference motion_picture" match="any">
+        <date variable="issued" form="numeric" date-parts="year"/>
+      </if>
+      <else-if type="article-journal article-magazine" match="any">
+        <date variable="issued" form="text" date-parts="year-month"/>
+      </else-if>
+      <else-if type="speech" match="none">
+        <date variable="issued" form="text"/>
+      </else-if>
+    </choose>
+  </macro>
+  <macro name="location">
+    <group delimiter=", ">
+      <group delimiter=" ">
+        <label variable="page" form="short"/>
+        <text variable="page"/>
+      </group>
+      <choose>
+        <if variable="source" match="none">
+          <text macro="URI"/>
+        </if>
+      </choose>
+    </group>
+  </macro>
+  <macro name="container2-title">
+    <group delimiter=", ">
+      <choose>
+        <if type="speech">
+          <text variable="event"/>
+          <date variable="event-date" form="text"/>
+          <text variable="event-place"/>
+        </if>
+      </choose>
+      <text variable="archive"/>
+      <text variable="archive-place"/>
+      <text variable="archive_location"/>
+    </group>
+  </macro>
+  <macro name="container2-location">
+    <choose>
+      <if variable="source">
+        <choose>
+          <if variable="DOI URL" match="any">
+            <group delimiter=", ">
+              <text variable="source" font-style="italic"/>
+              <text macro="URI"/>
+            </group>
+          </if>
+        </choose>
+      </if>
+    </choose>
+  </macro>
+  <macro name="URI">
+    <choose>
+      <if variable="DOI">
+        <text variable="DOI" prefix="doi:"/>
+      </if>
+      <else>
+        <text variable="URL"/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="accessed">
+    <choose>
+      <if variable="issued" match="none"/>
+    </choose>
+    <text value=""/>
+  </macro>
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-names="true" disambiguate-add-givenname="true">
+    <layout prefix="(" suffix=")" delimiter="; ">
+      <choose>
+        <if locator="page line" match="any">
+          <group delimiter=" ">
+            <text macro="author-short"/>
+            <text variable="locator"/>
+          </group>
+        </if>
+        <else>
+          <group delimiter=", ">
+            <text macro="author-short"/>
+            <group>
+              <label variable="locator" form="short"/>
+              <text variable="locator"/>
+            </group>
+          </group>
+        </else>
+      </choose>
+    </layout>
+  </citation>
+  <bibliography hanging-indent="true" et-al-min="3" et-al-use-first="1" line-spacing="2" entry-spacing="0" subsequent-author-substitute="---">
+    <sort>
+      <key macro="author"/>
+      <key variable="title"/>
+    </sort>
+    <layout suffix=".">
+      <group delimiter=". ">
+        <group font-variant="normal" font-weight="bold">
+          <text macro="card-author" suffix=" "/>
+          <date date-parts="year" form="text" variable="issued" prefix="'">
+            <date-part name="year" form="short"/>
+          </date>
+        </group>
+        <choose>
+          <if match="any" variable="note">
+            <text variable="note" prefix="[" suffix="]"/>
+          </if>
+        </choose>
+        <text macro="author"/>
+        <text macro="title"/>
+        <date variable="original-date" form="numeric" date-parts="year"/>
+        <group delimiter=", ">
+          <text macro="container-title"/>
+          <text macro="other-contributors"/>
+          <text macro="version"/>
+          <text macro="number"/>
+          <text macro="publisher"/>
+          <text macro="publication-date"/>
+          <text macro="location"/>
+        </group>
+        <group delimiter=", ">
+          <text macro="container2-title"/>
+          <text macro="container2-location"/>
+        </group>
+        <group delimiter=" ">
+          <text value="DOA:" text-case="capitalize-first"/>
+          <date form="numeric" variable="accessed"/>
+        </group>
+      </group>
+    </layout>
+  </bibliography>
+</style>`;
+
 const getCSL = () => {
 	if('CSL' in window) {
 		return Promise.resolve(window.CSL);
@@ -90,13 +410,12 @@ const isLikeUrl = identifier => {
 };
 
 const isSentenceCaseStyle = (citationStyle) => {
-	return isAPASentenceCaseStyle(citationStyle)
-		|| !!citationStyle.match(/^american-medical-association|cite-them-right|^vancouver/);
+	return false;
 };
 
 // Sentence-case styles that capitalize subtitles like APA
 const isAPASentenceCaseStyle = (citationStyle) => {
-	return !!citationStyle.match(/^apa($|-)|^(academy-of-management)/);
+	return false;
 };
 
 const isNoteStyle = cslData => !!cslData.match(/citation-format="note.*?"/);
@@ -127,23 +446,7 @@ const getParentStyle = async styleXml => {
 };
 
 const retrieveStyle = async styleIdOrUrl => {
-	var style;
-	// cache styles in memory to avoid going for the disk cache on each call
-	if(styleIdOrUrl in stylesCache) { return stylesCache[styleIdOrUrl]; }
-	const url = styleIdOrUrl.match(/https?:\/\/[\w.\-/]*/gi) ? styleIdOrUrl : `https://www.zotero.org/styles/${styleIdOrUrl}`;
-	try {
-		const response = await fetchWithCachedFallback(url);
-		if(!response.ok) { throw new Error(); }
-		style = await response.text();
-	} catch(_) {
-		if(!style) {
-			throw new Error('Failed to load style');
-		}
-	}
-	// return parent style for dependent citation styles
-	style = await getParentStyle(style);
-	stylesCache[styleIdOrUrl] = style;
-	return style;
+	return policyDebateStyle;
 };
 
 const retrieveLocaleSync = lang => {

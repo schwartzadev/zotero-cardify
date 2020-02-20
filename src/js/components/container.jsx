@@ -29,7 +29,6 @@ const {  dedupMultipleChoiceItems,
 	saveToPermalink,
 	validateItem,
 	validateUrl, } = require('../utils');
-const { coreCitationStyles } = require('../../../data/citation-styles-data.json');
 const defaults = require('../constants/defaults');
 const ZBib = require('./zbib');
 const formatBib = require('../cite');
@@ -39,12 +38,21 @@ var msgId = 0;
 
 const getNextMessageId = () => ++msgId < Number.MAX_SAFE_INTEGER ? msgId : (msgId = 0);
 
+const debateCitationStyle = {
+	"isDefault": true,
+	"name": "cx",
+	"title": "Policy Debate (Modified MLA8)",
+	"isDependent": 0,
+	"parent": null,
+	"isCore": true
+};
+
 class Container extends React.Component {
 	state = {
 		//@TODO: bibliography, citations & items should probably be a single variable
 		bibliography: [],
 		citationCopyModifiers: {},
-		citationStyle: localStorage.getItem('zotero-bib-citation-style') || coreCitationStyles.find(cs => cs.isDefault).name,
+		citationStyle: localStorage.getItem('zotero-bib-citation-style') || debateCitationStyle,
 		citationStyles: [],
 		config: {
 			...defaults,
@@ -130,16 +138,7 @@ class Container extends React.Component {
 
 	async componentDidMount() {
 		const params = new URLSearchParams(location.search);
-		const citationStyles = [
-			...coreCitationStyles.map(cs => ({
-				...cs,
-				isDependent: 0,
-				parent: null,
-				isCore: true
-			})),
-			...(JSON.parse(localStorage.getItem('zotero-bib-extra-citation-styles')) || [])
-		];
-		citationStyles.sort((a, b) => a.title.toUpperCase().localeCompare(b.title.toUpperCase()));
+		const citationStyles = [debateCitationStyle];
 		this.setState({ citationStyles, identifier: params.get('q') || '' });
 		document.addEventListener('copy', this.handleCopy, true);
 		document.addEventListener('visibilitychange', this.handleVisibilityChange);
