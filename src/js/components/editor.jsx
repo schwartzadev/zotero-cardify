@@ -45,7 +45,7 @@ class Editor extends React.PureComponent {
 			this.isRecentlyOpen = true;
 		}
 		if(this.isRecentlyOpen && this.itemBox) {
-			this.itemBox.focusField('itemType');
+			this.itemBox.focusField('extra');
 			this.isRecentlyOpen = false;
 		}
 	}
