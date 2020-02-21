@@ -143,6 +143,16 @@ class Editor extends React.PureComponent {
 				value: f.field in item ? item[f.field] : null
 		}));
 
+
+		let extraField = fields.find(field => field.key == 'extra');
+		extraField.label = 'Author Credentials';
+		extraField.isDebate = true; // todo use this field to organize debate and non-debate items
+
+		let extraFieldIndex = this.state.fields.findIndex(field => field.key == 'extra');
+
+		fields.splice(extraFieldIndex, 1);
+		fields.splice(0, 0, extraField); // these two lines move the extraField to the front of the list
+
 		this.setState({
 			item,
 			fields,
