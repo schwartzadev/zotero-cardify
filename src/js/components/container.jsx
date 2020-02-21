@@ -59,6 +59,7 @@ class Container extends React.Component {
 			...this.props.config
 		},
 		debateTags: JSON.parse(localStorage.getItem('debate-tags')) || [],
+		debateAttribution: JSON.parse(localStorage.getItem('debate-attribution')) || '',
 		editorItem: null,
 		isConfirmingStyleSwitch: false,
 		isEditorOpen: false,
@@ -828,6 +829,16 @@ class Container extends React.Component {
 		localStorage.setItem('debate-tags', JSON.stringify(this.state.debateTags));
 	}
 
+	handleSaveAttribution(attribution) {
+		this.setState({
+			debateAttribution: attribution
+		});
+
+		localStorage.setItem('debate-attribution', JSON.stringify(this.state.debateAttribution));
+	}
+
+	handleGetAttribution() { return this.state.debateAttribution; }
+
 
 	handleReadMoreClick(id, event) {
 		const target = document.querySelector('.zbib-illustration');
@@ -1115,6 +1126,8 @@ class Container extends React.Component {
 			onTitleChanged = { this.handleTitleChange.bind(this) }
 			onDebateTagChanged = { this.handleDebateTagChange.bind(this) }
 			onTranslationRequest = { this.handleTranslateIdentifier.bind(this) }
+			onSaveAttributionRequest = { this.handleSaveAttribution.bind(this) }
+			onGetAttributionRequest = { this.handleGetAttribution.bind(this) }
 			onUndoDelete = { this.handleUndoDelete.bind(this) }
 			{ ...this.state }
 		/>;

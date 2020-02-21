@@ -5,6 +5,7 @@ const PropTypes = require('prop-types');
 
 const Button = require('zotero-web-library/src/js/component/ui/button');
 const IdInput = require('./id-input');
+const AttributionInput = require('./attribution-input');
 
 class CiteTools extends React.PureComponent {
 	render() {
@@ -20,6 +21,10 @@ class CiteTools extends React.PureComponent {
 				>
 					Manual Entry
 				</Button>
+				<AttributionInput
+					{ ...this.props }
+					identifier={ this.props.onGetAttributionRequest() }
+				/>
 			</div>
 		);
 	}
