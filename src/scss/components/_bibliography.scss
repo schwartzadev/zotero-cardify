@@ -38,12 +38,17 @@
 				}
 			}
 
+			.citation {
+				&:hover {
+					background-color: $shade-1;
+				}
+			}
+
 			&:last-child {
 				border-bottom: 1px solid $shade-2;
 			}
 
 			&:hover {
-				background-color: $shade-1;
 
 				@media (min-width: $bp-md) {
 					.btn-remove {
