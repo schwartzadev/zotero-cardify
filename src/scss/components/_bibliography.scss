@@ -39,7 +39,7 @@
 			}
 
 			.citation {
-				&:hover {
+				&:hover, &:focus {
 					background-color: $shade-1;
 					transition: background-color 0.1s ease 0s;
 				}

@@ -7,7 +7,7 @@
 	width: 100%;
 	transition: background-color 0.1s ease 0s;
 
-	&:hover {
+	&:hover, &:focus {
 		background-color: $shade-1;
 	}
 }
