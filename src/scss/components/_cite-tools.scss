@@ -5,12 +5,20 @@
 .cite-tools {
 	text-align: center;
 
-	.id-input-container {
-		display: flex;
-		margin-bottom: $space-lg;
+	.attribution-input-container {
+		margin-top: $space-lg;
 
 		@media (min-width: $bp-md) {
 			margin-bottom: $space-xl;
+		}
+	}
+
+	.id-input-container {
+		display: flex;
+		margin-bottom: $space-md;
+
+		@media (min-width: $bp-md) {
+			margin-bottom: $space-lg;
 		}
 	}
 

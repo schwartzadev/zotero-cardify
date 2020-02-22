@@ -25,7 +25,7 @@ class AttributionInput extends React.PureComponent {
 
 	render() {
 		return (
-			<div className="id-input-container">
+			<div className="id-input-container attribution-input-container">
 				<Input
 					className="form-control form-control-lg id-input" // todo make this smaller
 					onChange={ this.handleChange.bind(this) }
