@@ -16,6 +16,16 @@
 		.input-group {
 			flex: 0 1 auto;
 		}
+
+		.form-control {
+			padding-top: 4px;
+			padding-bottom: 4px;
+
+			&:focus {
+				padding-top: 4px;
+				padding-bottom: 4px;
+			}
+		}
 	}
 
 	.id-input-container {

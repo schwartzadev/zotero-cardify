@@ -27,17 +27,17 @@ class AttributionInput extends React.PureComponent {
 		return (
 			<div className="id-input-container attribution-input-container">
 				<Input
-					className="form-control form-control-lg id-input" // todo make this smaller
+					className="form-control form-control-sm id-input"
 					onChange={ this.handleChange.bind(this) }
 					onCommit={ this.handleCite.bind(this) }
-					placeholder="Enter a custom attribution to the end of your cards" // todo make this pull from localstorage by default
+					placeholder="Custom attribution"
 					ref = { i => this.inputField = i } // todo check this out
 					tabIndex={ 0 }
 					type="text"
 					value={ this.state.identifier }
 				/>
 				<Button
-					className="btn-lg btn-secondary" // todo make this smaller
+					className="btn-sm btn-secondary"
 					onClick={ this.handleCite.bind(this) }
 				>
 					Add Attribution
