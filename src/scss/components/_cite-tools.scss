@@ -7,9 +7,14 @@
 
 	.attribution-input-container {
 		margin-top: $space-lg;
+		justify-content: center;
 
 		@media (min-width: $bp-md) {
 			margin-bottom: $space-xl;
+		}
+
+		.input-group {
+			flex: 0 1 auto;
 		}
 	}
 
