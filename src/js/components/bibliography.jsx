@@ -105,7 +105,7 @@ class Bibliography extends React.PureComponent {
 
 	renderBibliographyItem(rawItem, content) {
 		return (
-			<div className="card-container">
+			<div className="card-container" key={ rawItem.key }>
 				<Tag
 					{ ...this.props }
 					rawItemKey={ rawItem.key }
