@@ -166,13 +166,17 @@ class Bibliography extends React.PureComponent {
 							</DropdownItem>
 						</DropdownMenu>
 					</Dropdown>
-					<Button
-						title="Delete Entry"
-						className="btn-outline-secondary btn-remove"
-						onClick={ this.handleDeleteCitation.bind(this, rawItem.key) }
-					>
-						<Icon type={ '16/remove-sm' } width="16" height="16" />
-					</Button>
+					<div className="card-toolbar">
+						<div className="card-tool">
+							<Button
+								title="Delete Entry"
+								className="btn-outline-secondary btn-remove"
+								onClick={ this.handleDeleteCitation.bind(this, rawItem.key) }
+							>
+								<Icon type={ '16/remove-sm' } width="16" height="16" />
+							</Button>
+						</div>
+					</div>
 					<script type="application/vnd.zotero.data+json">
 						{ JSON.stringify(rawItem) }
 					</script>

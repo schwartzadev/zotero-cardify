@@ -43,19 +43,21 @@
 					background-color: $shade-1;
 					transition: background-color 0.1s ease 0s;
 				}
+
+				.card-toolbar {
+					margin: $space-sm $space-md;
+					display: flex;
+					justify-content: flex-end;
+
+					.card-tool {
+						margin: 0px $space-xs;
+					}
+				}
+
 			}
 
 			&:last-child {
 				border-bottom: 1px solid $shade-2;
-			}
-
-			&:hover {
-
-				@media (min-width: $bp-md) {
-					.btn-remove {
-						opacity: 1;
-					}
-				}
 			}
 
 			&:focus {
@@ -115,28 +117,14 @@
 			}
 
 			.btn-remove {
-				position: absolute;
-				width: $space-md;
-				height: $space-md;
-				top: 50%;
-				right: -24px;
-				margin: -8px 0 0 0;
+				width: $space-lg;
+				height: $space-lg;
 				border-radius: 50%;
 				display: none;
-
-				&:active {
-					opacity: 1;
-				}
+				opacity: 1;
 
 				@media (min-width: $bp-md) {
 					display: block;
-					opacity: 0;
-
-					&:focus {
-						@at-root #{selector-replace(&, ".write", ".write.keyboard-user")} {
-							opacity: 1;
-						}
-					}
 
 					&:active {
 						.icon {
