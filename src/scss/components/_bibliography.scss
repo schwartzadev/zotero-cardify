@@ -74,6 +74,10 @@
 				flex: 1 1 0;
 				margin-right: ($space-md - $space-xs);
 				min-width: 0; // Enable word-wrap for long URLs
+
+				.csl-entry {
+					display: inline;
+				}
 			}
 
 			> .btn-icon,

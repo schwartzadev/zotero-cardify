@@ -118,6 +118,7 @@ class Bibliography extends React.PureComponent {
 				>
 					<div className="csl-entry-container">
 						{ content }
+						<span className="attribution-container"> {this.props.debateAttribution}</span>
 					</div>
 					<Dropdown
 						isOpen={ this.state.dropdownsOpen.includes(rawItem.key) }
