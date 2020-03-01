@@ -378,6 +378,7 @@ class Container extends React.Component {
 			itemUnderReview: null,
 			permalink: null,
 			title: null,
+			debateTags: []
 		});
 	}
 
@@ -441,7 +442,8 @@ class Container extends React.Component {
 				messages: [
 					...this.state.messages.filter(m => !m.isUndoMessage),
 					message
-				]
+				],
+				debateTags: this.state.debateTags.filter(tag => tag.key !== item.key) // remove this tag from state
 			});
 		}
 	}
@@ -1084,6 +1086,8 @@ class Container extends React.Component {
 	}
 
 	render() {
+		localStorage.setItem('debate-tags', JSON.stringify(this.state.debateTags));
+
 		return <ZBib
 			getCopyData = { this.getCopyData.bind(this) }
 			getFileData = { this.getFileData.bind(this) }
