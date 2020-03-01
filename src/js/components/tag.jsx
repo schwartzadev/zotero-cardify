@@ -13,7 +13,7 @@ class Tag extends React.PureComponent {
 		super(props);
 		this.tagContentEditable = React.createRef();
 		this.state = {
-			content: this.getContent(this.props.rawItemKey)
+			content: getContent(this.props.rawItemKey, this.props.debateTags)
 		}
 	}
 
@@ -23,12 +23,14 @@ class Tag extends React.PureComponent {
 		this.props.onDebateTagChanged(this.props.rawItemKey, newTag);
 	};
 
-	getContent(rawItemKey) {
-		try {
-			let result = this.props.debateTags.find(item => item.key === rawItemKey);
-			return result.tag;
-		} catch (TypeError) {
-			return 'Enter a new tag...'; // todo make this a placeholder, not next
+	static getDerivedStateFromProps(nextProps, prevState) { // updates the tag when the props change
+		let newTag = getContent(nextProps.rawItemKey, nextProps.debateTags);
+		if (prevState.content == newTag) {
+			return null
+		} else {
+			return {
+				content: getContent(nextProps.rawItemKey, nextProps.debateTags)
+			}
 		}
 	}
 
@@ -41,6 +43,15 @@ class Tag extends React.PureComponent {
 				className="card-tag"
 			/>
 		);
+	}
+}
+
+function getContent(rawItemKey, debateTags) {
+	try {
+		let result = debateTags.find(item => item.key === rawItemKey);
+		return result.tag;
+	} catch (TypeError) {
+		return 'Enter a new tag...'; // todo make this a placeholder, not next
 	}
 }
 

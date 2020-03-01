@@ -5,6 +5,8 @@ const PropTypes = require('prop-types');
 const Button = require('zotero-web-library/src/js/component/ui/button');
 const formatBib = require('../cite');
 
+const Tag = require('./tag');
+
 class Review extends React.PureComponent {
 	handleDismiss() {
 		this.props.onReviewDismiss();
@@ -37,10 +39,20 @@ class Review extends React.PureComponent {
 			formatBib(bibliography);
 		const div = document.createElement('div');
 		div.innerHTML = html;
+
+		let tag;
+		if (this.props.itemUnderReview) {
+			let rawItemKey = this.props.itemUnderReview.key;
+			tag = <Tag { ...this.props } rawItemKey={ rawItemKey } />;
+		} else {
+			tag = null;
+		}
+
 		return (
 			<section className="section section-review review">
 				<h2 className="sr-only">New item …</h2>
 				<div className="container">
+					{tag}
 					<div
 						dangerouslySetInnerHTML={ { __html: div.innerHTML } }
 					/>
