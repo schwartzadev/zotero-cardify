@@ -146,6 +146,7 @@ class Editor extends React.PureComponent {
 
 		let extraField = fields.find(field => field.key == 'extra');
 		extraField.label = 'Author Credentials';
+		extraField.value = null; // purge any existing content in the extra field
 		extraField.isDebate = true; // todo use this field to organize debate and non-debate items
 
 		let extraFieldIndex = this.state.fields.findIndex(field => field.key == 'extra');
